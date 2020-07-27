@@ -1,13 +1,5 @@
 package com.example.demo.configurations;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-
-import com.example.demo.gpxdata.GpxType;
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-
 import java.io.IOException;
 
 import javax.xml.XMLConstants;
@@ -20,8 +12,11 @@ import javax.xml.validation.SchemaFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.core.io.Resource;
 import org.xml.sax.SAXException;
+
+import com.example.demo.gpxdata.GpxType;
+import com.google.common.base.Predicates;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;

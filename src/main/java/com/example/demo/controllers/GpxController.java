@@ -1,10 +1,7 @@
 package com.example.demo.controllers;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
-
-import javax.xml.bind.JAXBException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.domain.GPS;
 import com.example.demo.domain.GpxLatestTrack;
 import com.example.demo.domain.GpxResponse;
-import com.example.demo.gpxdata.GpxType;
 import com.example.demo.services.GpxService;
 import com.example.demo.services.impl.GpxServiceImpl;
 

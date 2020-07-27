@@ -58,8 +58,7 @@ public class GpxControllerTest {
    
     @Autowired
 	private GpxRepository gpxRepository;
-    @Value("${spring.datasource.url}")
-    private String urlTesting;
+   
     @Before
     public void init() {
     	

@@ -1,0 +1,14 @@
+This project requires to build/run with Java 8.
+- Run Unit Test  
+  - Go to project folder :
+  - mvn compile test
+
+ 
+  
+  The report will be place at target\site\jacoco  
+  Open index.html or use the report had been generated at jacoco.
+  - Run project  
+  - Go to project folder
+  - mvn spring-boot:run
+  Go to the link as below for Swagger API:
+  http://localhost:8080/swagger-ui.html

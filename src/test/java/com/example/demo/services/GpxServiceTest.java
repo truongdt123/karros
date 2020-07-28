@@ -1,4 +1,4 @@
- package com.example.demo.services;
+package com.example.demo.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -43,78 +43,90 @@ import com.example.demo.repositories.GpxRepository;
 @SpringBootTest
 public class GpxServiceTest {
 
-    @Autowired
-    GpxService gpxService;
-    Long id;
-    @Autowired
-    GpxRepository gpxRepository;
-    ClassLoader classLoader = getClass().getClassLoader();
-    @Before
-    public void init () {
-    	try {
-    	 File file = new File(classLoader.getResource("sample.gpx").getFile());
-         byte[] bFile = Files.readAllBytes(file.toPath());
-        
-         Optional<GPS> optional = gpxService.storeGpxFile(new FileInputStream(file),"sample.gpx",bFile,"123");
-         id = optional.get().getId();
-    	 }catch(IOException ioe) {
-         	assertTrue(false);
-         }
-    }
-    @After
-    public void remove() {
-    	 gpxRepository.deleteAll();
-    }
-    @Test
-    public void testStoreGpxFile()  {
-    	 try {
-        File file = new File(classLoader.getResource("sample.gpx").getFile());
-        byte[] bFile = Files.readAllBytes(file.toPath());
-       
-        Optional<GPS> optional = gpxService.storeGpxFile(new FileInputStream(file),"sample.gpx",bFile,"123");
-        assertTrue(optional.isPresent());
-        //gpxRepository.delete(optional.get().getId());
-        
-        }catch(IOException ioe) {
-        	assertTrue(false);
-        }
-       
-    }
-    @Test
-    public void testGetDetail() {
-    	try {
-    	File file = new File(classLoader.getResource("sample.gpx").getFile());
-        //byte[] bFile = Files.readAllBytes(file.toPath());
-       
-        //Optional<GPS> optional = gpxService.storeGpxFile(new FileInputStream(file),"sample.gpx",bFile,"123");
-    	String content = gpxService.getGpxContent(id);
-    	
-    	String expected = new String(
-                Files.readAllBytes(file.toPath()));
-    	assertEquals(expected, content);
-    	 //gpxRepository.delete(optional.get().getId());
-    	}catch(IOException ioe) {
-    		
-    	}
-    }
-    @Test
-    public void testGetLatestTrack() {
-    	
-        Page<GpxLatestTrack> lstTrack = gpxService.getLstTrack(0, 10);
-    	assertTrue(lstTrack.getTotalElements() > 0);
-    	
-    }
-    @Test
-    public void testStoreFileWrongFormat() {
-    	try {
-    	File file = new File(classLoader.getResource("sample_wrong_format_file.gpx").getFile());
-        byte[] bFile = Files.readAllBytes(file.toPath());
-        
-        	  Optional<GPS> optional = gpxService.storeGpxFile(new FileInputStream(file),"sample.gpx",bFile,"123");
-              assertTrue(!optional.isPresent());
-            }catch(IOException ioe) {
-            	assertTrue(true);
-            }
-    }
-    
+	@Autowired
+	GpxService gpxService;
+	Long id;
+	@Autowired
+	GpxRepository gpxRepository;
+	ClassLoader classLoader = getClass().getClassLoader();
+
+	@Before
+	public void init() {
+		try {
+			File file = new File(classLoader.getResource("sample.gpx").getFile());
+			byte[] bFile = Files.readAllBytes(file.toPath());
+
+			Optional<GPS> optional = gpxService.storeGpxFile(new FileInputStream(file), "sample.gpx", bFile, "123");
+			id = optional.get().getId();
+		} catch (IOException ioe) {
+			assertTrue(false);
+		}
+	}
+
+	@After
+	public void remove() {
+		gpxRepository.deleteAll();
+	}
+
+	@Test
+	public void testStoreGpxFile() {
+		try {
+			File file = new File(classLoader.getResource("sample.gpx").getFile());
+			byte[] bFile = Files.readAllBytes(file.toPath());
+
+			Optional<GPS> optional = gpxService.storeGpxFile(new FileInputStream(file), "sample.gpx", bFile, "123");
+			assertTrue(optional.isPresent());
+			assertEquals("123", optional.get().getUserId());
+			assertEquals("sample.gpx", optional.get().getFileName());
+
+		} catch (IOException ioe) {
+			assertTrue(false);
+		}
+
+	}
+	
+	@Test
+	public void testGetDetail() {
+		try {
+			File file = new File(classLoader.getResource("sample.gpx").getFile());
+			String content = gpxService.getGpxContent(id);
+
+			String expected = new String(Files.readAllBytes(file.toPath()));
+			assertEquals(expected, content);
+
+		} catch (IOException ioe) {
+
+		}
+	}
+
+	@Test
+	public void testGetLatestTrack() {
+
+		Page<GpxLatestTrack> lstTrack = gpxService.getLstTrack(0, 10);
+		assertTrue(lstTrack.getContent().size() > 0);
+		GpxLatestTrack gpxLatest = lstTrack.getContent().get(0);
+		assertEquals("sample.gpx",gpxLatest.getFileName());
+		assertEquals("123",gpxLatest.getUserId());
+	}
+	@Test
+	public void testGetLatestTrackEmpty() {
+
+		Page<GpxLatestTrack> lstTrack = gpxService.getLstTrack(1, 10);
+		assertTrue(lstTrack.getContent().size() == 0);
+		
+	}
+
+	@Test
+	public void testStoreFileWrongFormat() {
+		try {
+			File file = new File(classLoader.getResource("sample_wrong_format_file.gpx").getFile());
+			byte[] bFile = Files.readAllBytes(file.toPath());
+
+			Optional<GPS> optional = gpxService.storeGpxFile(new FileInputStream(file), "sample.gpx", bFile, "123");
+			assertTrue(!optional.isPresent());
+		} catch (IOException ioe) {
+			assertTrue(true);
+		}
+	}
+
 }

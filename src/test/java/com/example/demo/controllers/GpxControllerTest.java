@@ -9,7 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 
 import org.json.JSONObject;
@@ -89,9 +91,7 @@ public class GpxControllerTest {
         
         
     }
-
     
-
     @Test
     public void testStoreGpxWrongFormat() throws Exception {
         MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "sample.gpx", "multipart/form-data",

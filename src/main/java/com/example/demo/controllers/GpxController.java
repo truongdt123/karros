@@ -64,6 +64,7 @@ public class GpxController {
 			}
 		} catch (IOException ioe) {
 			logger.error(ioe.getMessage());
+			
 		}
 		gpxRes.setMessage(STORE_GPX_FAILED);
 		return new ResponseEntity(gpxRes, HttpStatus.BAD_REQUEST);

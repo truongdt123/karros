@@ -32,7 +32,14 @@ public class GpxServiceImpl implements GpxService {
 	@Autowired
 	private GpxRepository gpxRepository;
 	private static final Logger logger = LoggerFactory.getLogger(GpxServiceImpl.class);
-
+	/**
+	 * Validate and save a Gpx file to Database.
+	 * @param inputStream : Stream of Gpx file 
+	 * @param fileName : Name of Gpx file
+	 * @param bytes : An array binary of Gpx file
+	 * @param userId : Identity of User.
+	 * @return The GPS object
+	 */
 	public Optional<GPS> storeGpxFile(InputStream inputStream,String fileName,byte[] bytes, String userId)  {
 		GPS gps = null;
 		try {
@@ -56,12 +63,20 @@ public class GpxServiceImpl implements GpxService {
 		return Optional.ofNullable(gps);
 	}
 
-	
+	/**
+	 * Store Gps object to database.
+	 * @param gps : GPS object
+	 * @return the GPS object contains an Identity generate from database.
+	 */
 	private GPS save(GPS gps) {
 		return gpxRepository.save(gps);
 
 	}
-
+	/**
+	 * Get Content of GPx file
+	 * @param id : Identity of GPX file in database
+	 * @return Content of GPX file.
+	 */
 	public String getGpxContent(Long id) {
 		Optional<GPS> optional = gpxRepository.findById(id);
 		String content = "";
@@ -71,7 +86,12 @@ public class GpxServiceImpl implements GpxService {
 		return content;
 
 	}
-
+	/**
+	 * Get a list Gpx files with latest tracking from database. 
+	 * @param page : number of pages
+	 * @param size : number elements in a page.
+	 * @return a list elements in above number of pages.
+	 */
 	@Override
 	public Page<GpxLatestTrack> getLstTrack(int page, int size) {
 

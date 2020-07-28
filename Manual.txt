@@ -1,14 +1,16 @@
-This project requires to build/run with Java 8.
-- Run Unit Test  
-  - Go to project folder :
-  - mvn compile test
-
- 
-  
-  The report will be place at target\site\jacoco  
-  Open index.html or use the report had been generated at jacoco.
-  - Run project  
+This project is using maven for building and running with Java 8.
+1. Build and run Unit Test  
+  1.1 Go to project folder :
+  1.2 Execute : mvn compile test
+  - The report of coverage unit test will be place at target\site\jacoco
+ -  Open index.html or jacoco.cvs
+ 2.  Run project  
   - Go to project folder
-  - mvn spring-boot:run
+  - Execute: mvn spring-boot:run
   Go to the link as below for Swagger API:
   http://localhost:8080/swagger-ui.html
+  
+ 3. Architect design :
+   Please see architect design diagrams as beelow :
+   3.1 flow_diagram.pdf
+   3.2 Sequence_diagram.pdf

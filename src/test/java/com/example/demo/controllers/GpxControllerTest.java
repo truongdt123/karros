@@ -40,7 +40,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
-//@ContextConfiguration(classes=H2DataBaseTestConfi.class, loader=AnnotationConfigContextLoader.class)
+
 @TestPropertySource(locations = "classpath:application-test.properties")
 @ActiveProfiles("test")
 @SpringBootTest
